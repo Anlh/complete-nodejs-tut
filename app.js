@@ -10,14 +10,24 @@ const argv = yargs.argv;
 // let command = process.argv[2];
 // console.log('Command: ', command);
 // console.log('Process: ', process.argv);
-console.log('Yargs: ', argv);
+// console.log('Yargs: ', argv);
 
 const inputTitle = argv.title;
 const inputBody = argv.body;
 const command = argv._[0];
 
 if (command === 'add') {
-    notes.addNote(inputTitle, inputBody);
+    let note = notes.addNote(inputTitle, inputBody);
+
+    if (note) {
+        console.log('Your note has been created with success!');
+        console.log('---');
+        console.log(`Title: ${note.title}`);
+        console.log(`Body: ${note.body}`);
+    } else {
+        console.log('Sorry but there is already one note with that title, try another one');
+    }
+
 } else if (command === 'list') {
     notes.listNotes();
 } else if (command === 'read') {

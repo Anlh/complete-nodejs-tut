@@ -2,33 +2,42 @@ console.log('Starting notes.js');
 
 const fs = require('fs');
 
-const addNote = (title, body) => {
-    const newNote = {title, body};
-    let notes = [];
+// Refactor for reusability
 
+// Read data from notes-data.json file
+const fetchNotes = () => {
     try {
         // Check if the notes-data.json exists or if its corrupted
         // If it returns an error, this try block is ignored, and the notes variable will still be an empty array
         let notesString = fs.readFileSync('notes-data.json');
-        notes = JSON.parse(notesString);
+        return JSON.parse(notesString);
     } catch (e) {
-        // I could do something to recover from the error thrown, but ill not do anything...
+        // Let's return an empty array if anything on try block fails
+        return [];
     }
+};
 
-    // Check for duplicate note titles
-    let duplicateNotes = notes.filter((note) => note.title === title);
-    if (duplicateNotes.length > 0) {
-        console.log('There is already a note with that title stored!')
-    } else {
-        notes.push(newNote);
-    }
-
-
+// Write notes data to the notes-data.json file
+const saveNotes = (notes) => {
     fs.writeFileSync('notes-data.json', JSON.stringify(notes));
 };
 
+const addNote = (title, body) => {
+    const newNote = {title, body};
+    let notes = fetchNotes();
+
+    // Check for duplicate note titles
+    let duplicateNotes = notes.filter((note) => note.title === title);
+    if (duplicateNotes.length === 0) {
+        notes.push(newNote);
+        saveNotes(notes);
+        return newNote;
+    }
+};
+
+
 const listNotes = () => {
-    const notes = JSON.parse(fs.readFileSync('notes-data.json'));
+    const notes = fetchNotes();
     console.log('Listing all notes', notes);
 };
 
