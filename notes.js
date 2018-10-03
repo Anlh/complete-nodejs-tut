@@ -24,7 +24,6 @@ const saveNotes = (notes) => {
 const addNote = (title, body) => {
     const newNote = {title, body};
     let notes = fetchNotes();
-
     // Check for duplicate note titles
     let duplicateNotes = notes.filter((note) => note.title === title);
     if (duplicateNotes.length === 0) {
