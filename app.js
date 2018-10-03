@@ -29,7 +29,7 @@ if (command === 'add') {
     }
 
 } else if (command === 'list') {
-    notes.listNotes();
+    console.log('Listing all notes', notes.listNotes());
 } else if (command === 'read') {
     const noteSelected = notes.getNote(inputTitle);
     const message = noteSelected ? noteSelected : 'Your note was not found';
