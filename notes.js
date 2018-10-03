@@ -8,7 +8,7 @@ const fs = require('fs');
 const fetchNotes = () => {
     try {
         // Check if the notes-data.json exists or if its corrupted
-        // If it returns an error, this try block is ignored, and the notes variable will still be an empty array
+        // If it is returns an error, this try block is ignored, and the notes variable will still be an empty array
         let notesString = fs.readFileSync('notes-data.json');
         return JSON.parse(notesString);
     } catch (e) {
@@ -47,8 +47,10 @@ const getNote = (title) => {
 };
 
 const deleteNote = (title) => {
-    console.log('Deleting note');
-    // delete note
+    const notes = fetchNotes();
+    const newNotes = notes.filter(note => note.title !== title);
+    saveNotes(newNotes);
+    return notes.length !== newNotes.length;
 };
 
 module.exports = {

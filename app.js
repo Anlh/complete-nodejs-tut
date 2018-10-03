@@ -33,7 +33,9 @@ if (command === 'add') {
 } else if (command === 'read') {
     notes.getNote(inputTitle);
 } else if (command === 'delete') {
-    notes.deleteNote(inputTitle);
+    const noteIsDeleted = notes.deleteNote(inputTitle);
+    const message = noteIsDeleted ? 'Your note has been deleted with success!' : 'Sorry but the note with that title doesn\'t exist';
+    console.log(message);
 } else {
     console.log('Command not recognized');
 }
