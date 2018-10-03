@@ -2,7 +2,6 @@ console.log('Starting notes.js');
 
 const fs = require('fs');
 
-// Refactor for reusability
 
 // Read data from notes-data.json file
 const fetchNotes = () => {
@@ -42,8 +41,10 @@ const listNotes = () => {
 };
 
 const getNote = (title) => {
-    console.log('Reading note');
-    return notes;
+    const notes = fetchNotes();
+    const noteSelected = notes.filter(note => note.title === title);
+
+    return noteSelected[0];
 };
 
 const deleteNote = (title) => {

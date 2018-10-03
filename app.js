@@ -31,7 +31,9 @@ if (command === 'add') {
 } else if (command === 'list') {
     notes.listNotes();
 } else if (command === 'read') {
-    notes.getNote(inputTitle);
+    const noteSelected = notes.getNote(inputTitle);
+    const message = noteSelected ? noteSelected : 'Your note was not found';
+    console.log(message);
 } else if (command === 'delete') {
     const noteIsDeleted = notes.deleteNote(inputTitle);
     const message = noteIsDeleted ? 'Your note has been deleted with success!' : 'Sorry but the note with that title doesn\'t exist';
