@@ -6,11 +6,31 @@ const yargs = require('yargs');
 
 const notes = require('./notes.js');
 
-const argv = yargs.argv;
-// let command = process.argv[2];
-// console.log('Command: ', command);
-// console.log('Process: ', process.argv);
-// console.log('Yargs: ', argv);
+const bodyOptions = {
+    describe: 'Body of note',
+    demand: true,
+    alias: 'b'
+};
+const titleOptions = {
+    describe: 'Title of note',
+    demand: true, // required
+    alias: 't' // instead of writing --title all the time we can create an alias
+};
+const argv = yargs
+    .command('add', 'Add a new note', {
+        title: titleOptions,
+        body: bodyOptions
+    })
+    .command('list', 'List all the notes')
+    .command('read', 'Read a note', {
+        title: titleOptions
+    })
+    .command('delete', 'Read a note', {
+        title: titleOptions
+    })
+    .help()
+    .locale('pt')
+    .argv;
 
 const inputTitle = argv.title;
 const inputBody = argv.body;
