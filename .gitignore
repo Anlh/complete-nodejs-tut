@@ -9,3 +9,5 @@ out
 gen
 
 /weather-app/KEY.js
+
+/weather-app/node_modules
